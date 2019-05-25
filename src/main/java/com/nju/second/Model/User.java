@@ -1,10 +1,9 @@
 package com.nju.second.Model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.ColumnTransformer;
+
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -14,6 +13,12 @@ public class User {
     int userId;
 
     String userName;
+
+
+    @ColumnTransformer(
+            read = "CAST(AES_DECRYPT(pass_word, '1') as char(1000))",
+            write = "AES_ENCRYPT(?, '1')" )
+    @Column(columnDefinition="varbinary(255)")
     String passWord;
 
     String registerDate;
