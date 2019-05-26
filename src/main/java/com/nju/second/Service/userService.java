@@ -122,4 +122,16 @@ public class userService {
             return 0;
         }
     }
+
+//    public UserInfo getAchievement(int userId) {
+//        try {
+//            User user = userRepository.findByUserId(userid);
+//            String username = user();
+//            String imagePath = user.getImagePath();
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return userInfo;
+//        }
+//    }
 }

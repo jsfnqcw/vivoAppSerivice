@@ -21,6 +21,14 @@ public class Game {
     @JoinColumn(name="user_id")
     User user;
 
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @OneToMany(mappedBy = "game",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     List<Comment> comments;
 

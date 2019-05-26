@@ -15,8 +15,6 @@ public class loginPojo {
     String passWord;
 
 
-    public loginPojo() {
-    }
 
     public loginPojo(String userName, String passWord) {
         this.userName = userName;

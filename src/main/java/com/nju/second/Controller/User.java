@@ -114,11 +114,22 @@ public class User {
         if(bindingResult.hasErrors()){
             return userInfo;
         }
-        HttpSession session = request.getSession(true);
         int userId = i.getUserID();
         return uService.getUserInfoByID(userId);
 
     }
+
+//    @RequestMapping("/getAchievement")
+//    @ResponseBody
+//    public UserInfo getAchievement(@RequestBody @Validated UserInfoPojo i, BindingResult bindingResult) {
+//        UserInfo userInfo = new UserInfo();
+//        if(bindingResult.hasErrors()){
+//            return userInfo;
+//        }
+//        int userId = i.getUserID();
+////        return uService.getAchievement(userId);
+//
+//    }
 
 
     @RequestMapping("/user/noLogin")
