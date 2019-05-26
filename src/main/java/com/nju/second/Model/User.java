@@ -28,6 +28,13 @@ public class User {
     int money;
 
 
+    public List<Game> getCreationList() {
+        return creationList;
+    }
+
+    public void setCreationList(List<Game> creationList) {
+        this.creationList = creationList;
+    }
 
     @OneToMany(mappedBy = "user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     List<Game> creationList;//文章列表
