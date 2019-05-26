@@ -1,11 +1,17 @@
 package com.nju.second.Service;
 
 
+import com.nju.second.Dao.UserInfo;
 import com.nju.second.Model.User;
 import com.nju.second.Repositories.UserRepository;
 import com.nju.second.Tools.TimeTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.misc.BASE64Encoder;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 @Service
@@ -56,14 +62,37 @@ public class userService {
 
     }
 
-    public int getUserInfoByID(int userid){
+    public UserInfo getUserInfoByID(int userid){
+        UserInfo userInfo = new UserInfo();
         try {
             User user = userRepository.findByUserId(userid);
             String username = user.getUserName();
-            String img = user.getImagePath();
+            String imagePath = user.getImagePath();
+            InputStream in = null;
+            byte[] data = null;
+            //读取图片字节数组
+            try
+            {
+                in = new FileInputStream(imagePath);
+                data = new byte[in.available()];
+                in.read(data);
+                in.close();
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            //对字节数组Base64编码
+            BASE64Encoder encoder = new BASE64Encoder();
+            String base64 = encoder.encode(data);
+            int money = user.getMoney();
+            userInfo.setAmount(money);
+            userInfo.setBase64(base64);
+            userInfo.setUsername(username);
+            return userInfo;
         }catch (Exception e){
             e.printStackTrace();
-            return 0;
+            return userInfo;
         }
 
     }

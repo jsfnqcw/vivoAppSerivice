@@ -4,6 +4,7 @@ import com.nju.second.Controller.pojo.UserInfoPojo;
 import com.nju.second.Controller.pojo.amountPojo;
 import com.nju.second.Controller.pojo.loginPojo;
 import com.nju.second.Dao.LoginMessage;
+import com.nju.second.Dao.UserInfo;
 import com.nju.second.Service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -108,13 +109,14 @@ public class User {
 
     @RequestMapping("/getUserInfoByID")
     @ResponseBody
-    public int getUserInfoByID(@RequestBody @Validated UserInfoPojo i, BindingResult bindingResult) {
+    public UserInfo getUserInfoByID(@RequestBody @Validated UserInfoPojo i, BindingResult bindingResult) {
+        UserInfo userInfo = new UserInfo();
         if(bindingResult.hasErrors()){
-            return 1;
+            return userInfo;
         }
         HttpSession session = request.getSession(true);
         int userId = i.getUserID();
-        return uService.getUserInfoByID(userid);
+        return uService.getUserInfoByID(userId);
 
     }
 
