@@ -25,7 +25,7 @@ public class Comment {
     public void addComment(@RequestBody @Validated addCommentPojo i, BindingResult bindingResult) {
         int gameid = i.getGameID();
         String comment = i.getContent();
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
         int userid = (int)session.getAttribute("User");
         cService.addComment(gameid,comment,userid);
     }

@@ -89,7 +89,7 @@ public class User {
             return 1;
         }
         int money = i.getAmount();
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
         int userid = (int)session.getAttribute("User");
         return uService.addMoney(userid,money);
 
@@ -101,7 +101,7 @@ public class User {
         if(bindingResult.hasErrors()){
             return 1;
         }
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
         int userid = (int)session.getAttribute("User");
         return uService.getMoney(userid);
 

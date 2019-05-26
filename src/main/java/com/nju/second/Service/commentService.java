@@ -14,11 +14,17 @@ public class commentService {
     @Autowired
     GameRepository gameRepository;
 
-    public void addComment(int gameid,String comment,String userid){
+    public void addComment(int gameid,String comment,int userid){
         try {
             Game game = gameRepository.findByGameId(gameid);
-            Comment comment1 = new Comment(comment,userid)
-            game.getComments().add(comment);
+            Comment com = new Comment();
+            com.setContent(comment);
+            com.setUserId(userid);
+            com.setGame(game);
+            com.setFloor(game.getComments().size()+1);
+            commentRepository.save(com);
+            game.getComments().add(com);
+            gameRepository.save(game);
         }catch (Exception e){
             e.printStackTrace();
         }
