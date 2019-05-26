@@ -1,4 +1,4 @@
-package com.nju.second.Dao;
+package com.nju.second.Controller.pojo;
 
 public class UserInfo {
     private String username;

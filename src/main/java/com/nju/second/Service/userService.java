@@ -1,11 +1,9 @@
 package com.nju.second.Service;
 
 
-import com.alibaba.fastjson.JSONObject;
-import com.nju.second.Dao.UserInfo;
+import com.nju.second.Controller.pojo.UserInfo;
 import com.nju.second.Model.User;
 import com.nju.second.Repositories.UserRepository;
-import com.nju.second.Tools.TimeTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Encoder;

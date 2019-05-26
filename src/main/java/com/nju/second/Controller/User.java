@@ -4,8 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.nju.second.Controller.pojo.UserInfoPojo;
 import com.nju.second.Controller.pojo.amountPojo;
 import com.nju.second.Controller.pojo.loginPojo;
-import com.nju.second.Dao.LoginMessage;
-import com.nju.second.Dao.UserInfo;
+import com.nju.second.Controller.pojo.UserInfo;
 import com.nju.second.Service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,45 +27,29 @@ public class User {
     @Autowired
     HttpServletRequest request;
 
-
-
-    @RequestMapping("/test")
-    @ResponseBody
-    public String getResExm() {
-        return "NMSL!";
-    }
-
-
-    @RequestMapping("/show")
-    @ResponseBody
-    public String getResxm() {
-        return "Hello World2";
-    }
-
-
     @RequestMapping("/login")
     @ResponseBody
-    public LoginMessage login(@RequestBody @Validated loginPojo i, BindingResult bindingResult , HttpServletResponse response) {
-        LoginMessage loginMessage = new LoginMessage();
-        loginMessage.setSuccess(1);
-        loginMessage.setUserID(-1);
+    public String login(@RequestBody @Validated loginPojo i, BindingResult bindingResult , HttpServletResponse response) {
+        JSONObject obj = new JSONObject();
         if(bindingResult.hasErrors()){
-            return loginMessage;
+            obj.put("success",1);
+            obj.put("userID",-1);
+            return obj.toJSONString();
         }
+
         if(uService.Login(i.getUserName(),i.getPassWord())){
             HttpSession session = request.getSession(true);
-            int getIdByUserName = uService.getIdByUsername(i.getUserName());
+            int Id = uService.getIdByUsername(i.getUserName());
+                session.setAttribute("User", Id);
+                obj.put("success",0);
+                obj.put("userID",Id);
+                obj.put("userID",Id);
+                return obj.toJSONString();
 
-            if(getIdByUserName==0){
-                return loginMessage;
-            }else {
-                session.setAttribute("User", uService.getIdByUsername(i.getUserName()));
-                loginMessage.setSuccess(0);
-                loginMessage.setUserID(uService.getIdByUsername(i.getUserName()));
-                return loginMessage;
-            }
         }else{
-            return loginMessage;
+            obj.put("success",1);
+            obj.put("userID",-1);
+            return obj.toJSONString();
         }
 
     }
@@ -110,13 +93,12 @@ public class User {
 
     @RequestMapping("/getUserInfoByID")
     @ResponseBody
-    public UserInfo getUserInfoByID(@RequestBody @Validated UserInfoPojo i, BindingResult bindingResult) {
-        UserInfo userInfo = new UserInfo();
+    public String getUserInfoByID(@RequestBody @Validated UserInfoPojo i, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return userInfo;
+            return "{}";
         }
-        int userId = i.getUserID();
-        return uService.getUserInfoByID(userId);
+        UserInfo info = uService.getUserInfoByID(i.getUserID()) ;
+        return JSONObject.toJSONString(info);
 
     }
 
@@ -145,6 +127,7 @@ public class User {
         obj.put("success",i+"");
         return obj.toString();
     }
+
 
 
 }
