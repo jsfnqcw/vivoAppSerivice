@@ -4,6 +4,7 @@ package com.nju.second.Model;
 import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
@@ -23,6 +24,42 @@ public class User {
 
     String registerDate;
     String imagePath;
+
+    int money;
+
+
+
+    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    List<Game> creationList;//文章列表
+
+
+    String focus;  //所有关注者的ID
+
+
+
+
+
+
+
+
+
+
+
+    public User(String userName, String passWord, String registerDate, String imagePath, int money) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.registerDate = registerDate;
+        this.imagePath = imagePath;
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
 
     public int getUserId() {
         return userId;
@@ -65,13 +102,6 @@ public class User {
         this.imagePath = imagePath;
     }
 
-    public User(int userId, String userName, String passWord, String registerDate, String imagePath) {
-        this.userId = userId;
-        this.userName = userName;
-        this.passWord = passWord;
-        this.registerDate = registerDate;
-        this.imagePath = imagePath;
-    }
 
     public User() {
     }
