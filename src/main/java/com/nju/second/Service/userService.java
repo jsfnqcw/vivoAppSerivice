@@ -14,11 +14,6 @@ public class userService {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-
-
-
-
     public boolean Login(String userName,String password){
         try {
             User user = userRepository.findByUserName(userName);
@@ -30,7 +25,7 @@ public class userService {
 
     }
 
-    public String Register(String userName,String password){
+    public int Register(String userName,String password){
         try {
             User user = userRepository.findByUserName(userName);
             if(user == null){
@@ -40,13 +35,13 @@ public class userService {
                 newUser.setRegisterDate(TimeTools.getTime());
                 newUser.setImagePath("default");
                 userRepository.save(newUser);
-                return Message.Success;
+                return 0;
             }else{
-                return "userName is already used";
+                return 1;
             }
         }catch (Exception e){
             e.printStackTrace();
-            return Message.ServerError;
+            return 1;
         }
     }
 
@@ -61,27 +56,41 @@ public class userService {
 
     }
 
-
-
-
-
-
-    public void example(){
+    public int getUserInfoByID(int userid){
         try {
-
+            User user = userRepository.findByUserId(userid);
+            String username = user.getUserName();
+            String img = user.getImagePath();
         }catch (Exception e){
             e.printStackTrace();
+            return 0;
         }
+
     }
 
-    public boolean example2(){
-        try {
-
-            return true;
-        }catch (Exception e){
+    public int addMoney(int userid,int amount){
+        try{
+            User user = userRepository.findByUserId(userid);
+            int money = user.getMoney();
+            money += amount;
+            user.setMoney(money);
+            userRepository.save(user);
+            return 0;
+        }catch(Exception e){
             e.printStackTrace();
-            return false;
+            return 1;
         }
 
+    }
+
+    public int getMoney(int userid) {
+        try{
+            User user = userRepository.findByUserId(userid);
+            int money = user.getMoney();
+            return money;
+        }catch(Exception e){
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

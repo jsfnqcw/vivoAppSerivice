@@ -35,16 +35,6 @@ public class User {
 
     String focus;  //所有关注者的ID
 
-
-
-
-
-
-
-
-
-
-
     public User(String userName, String passWord, String registerDate, String imagePath, int money) {
         this.userName = userName;
         this.passWord = passWord;

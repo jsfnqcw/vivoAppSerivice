@@ -1,8 +1,9 @@
 package com.nju.second.Controller;
 
+import com.nju.second.Controller.pojo.UserInfoPojo;
+import com.nju.second.Controller.pojo.amountPojo;
 import com.nju.second.Controller.pojo.loginPojo;
 import com.nju.second.Dao.LoginMessage;
-import com.nju.second.Service.Message;
 import com.nju.second.Service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ public class User {
     userService uService;
     @Autowired
     HttpServletRequest request;
+
 
 
     @RequestMapping("/test")
@@ -61,12 +63,6 @@ public class User {
                 loginMessage.setUserID(uService.getIdByUsername(i.getUserName()));
                 return loginMessage;
             }
-            /*
-            String a = session.getId();
-            response.addHeader("JSESSIONID",a);
-            */
-
-
         }else{
             return loginMessage;
         }
@@ -75,14 +71,51 @@ public class User {
 
     @RequestMapping("/register")
     @ResponseBody
-    public String register(@RequestBody @Validated loginPojo i, BindingResult bindingResult ) {
+    public int register(@RequestBody @Validated loginPojo i, BindingResult bindingResult ) {
         if(bindingResult.hasErrors()){
-            return Message.ParamError;
+            return 1;
         }
         String userName = i.getUserName();
         String passWord = i.getPassWord();
 
         return uService.Register(userName,passWord);
+    }
+
+    @RequestMapping("/addMoney")
+    @ResponseBody
+    public int addMoney(@RequestBody @Validated amountPojo i, BindingResult bindingResult ) {
+        if(bindingResult.hasErrors()){
+            return 1;
+        }
+        int money = i.getAmount();
+        HttpSession session = request.getSession(true);
+        int userid = (int)session.getAttribute("User");
+        return uService.addMoney(userid,money);
+
+    }
+
+    @RequestMapping("/getMoney")
+    @ResponseBody
+    public int getMoney(BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return 1;
+        }
+        HttpSession session = request.getSession(true);
+        int userid = (int)session.getAttribute("User");
+        return uService.getMoney(userid);
+
+    }
+
+    @RequestMapping("/getUserInfoByID")
+    @ResponseBody
+    public int getUserInfoByID(@RequestBody @Validated UserInfoPojo i, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return 1;
+        }
+        HttpSession session = request.getSession(true);
+        int userId = i.getUserID();
+        return uService.getUserInfoByID(userid);
+
     }
 
 
