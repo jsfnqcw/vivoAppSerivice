@@ -7,6 +7,8 @@ import com.nju.second.Repositories.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class commentService {
     @Autowired
@@ -28,5 +30,10 @@ public class commentService {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public List<Comment> getCommentList(int gameid) {
+        Game game = gameRepository.findByGameId(gameid);
+        return game.getComments();
     }
 }
