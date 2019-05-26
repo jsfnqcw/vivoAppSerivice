@@ -1,5 +1,7 @@
 package com.nju.second.Controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.nju.second.Controller.pojo.UserInfoPojo;
 import com.nju.second.Controller.pojo.amountPojo;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -81,14 +84,10 @@ public class User {
 
     @RequestMapping("/getMoney")
     @ResponseBody
-    public String getMoney(BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            return Int_To_JSONString(1);
-        }
+    public String getMoney() {
         HttpSession session = request.getSession(false);
         int userid = (int)session.getAttribute("User");
         return Int_To_JSONString(uService.getMoney(userid));
-
     }
 
     @RequestMapping("/getUserInfoByID")
@@ -101,6 +100,21 @@ public class User {
         return JSONObject.toJSONString(info);
 
     }
+
+
+    @RequestMapping("/getAchievement")
+    @ResponseBody
+    public String getAchievement(@RequestBody String i) {
+        if(i == null){
+            return null;
+        }
+        JSONObject obj = JSON.parseObject(i);
+        int userId = obj.getInteger("userID");
+
+        List list = uService.getAchievements(userId);
+        return JSONArray.parseArray(JSON.toJSONString(list)).toJSONString();
+    }
+    
 
 
     @RequestMapping("/user/noLogin")

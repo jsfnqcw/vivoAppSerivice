@@ -43,6 +43,5 @@ public class Game {
         List<Integer> list =  gService.getGameListByAuthor(authorId);
 
         return JSONArray.parseArray(JSON.toJSONString(list)).toJSONString();
-
     }
 }

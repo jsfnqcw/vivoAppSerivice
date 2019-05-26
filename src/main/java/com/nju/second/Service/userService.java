@@ -1,8 +1,11 @@
 package com.nju.second.Service;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.nju.second.Controller.pojo.UserInfo;
+import com.nju.second.Model.Achievements;
 import com.nju.second.Model.User;
+import com.nju.second.Repositories.AchievementRepo;
 import com.nju.second.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,8 @@ import sun.misc.BASE64Encoder;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -18,6 +23,9 @@ public class userService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    AchievementRepo achievementRepo;
+
 
     public boolean Login(String userName,String password){
         try {
@@ -60,10 +68,10 @@ public class userService {
 
     }
 
-    public UserInfo getUserInfoByID(int userid){
+    public UserInfo getUserInfoByID(int userId){
         UserInfo userInfo = new UserInfo();
         try {
-            User user = userRepository.findByUserId(userid);
+            User user = userRepository.findByUserId(userId);
             String username = user.getUserName();
             String imagePath = user.getImagePath();
             InputStream in = null;
@@ -95,9 +103,9 @@ public class userService {
 
     }
 
-    public int addMoney(int userid,int amount){
+    public int addMoney(int userId,int amount){
         try{
-            User user = userRepository.findByUserId(userid);
+            User user = userRepository.findByUserId(userId);
             int money = user.getMoney();
             money += amount;
             user.setMoney(money);
@@ -110,9 +118,9 @@ public class userService {
 
     }
 
-    public int getMoney(int userid) {
+    public int getMoney(int userId) {
         try{
-            User user = userRepository.findByUserId(userid);
+            User user = userRepository.findByUserId(userId);
             int money = user.getMoney();
             return money;
         }catch(Exception e){
@@ -121,6 +129,25 @@ public class userService {
         }
     }
 
+
+    public List<Achievements> getAchievements(int userId){
+        try{
+            User user = userRepository.findByUserId(userId);
+            if(user.getAchievements()== null){
+                return null;
+            }
+            String[] str = user.getAchievements().split(",");
+            List<Achievements> list = new ArrayList<>();
+            for(String tmp : str){
+                Achievements acTmp = achievementRepo.findAchievementsByAchievementId(Integer.parseInt(tmp));
+                list.add(acTmp);
+            }
+            return list;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 //    public UserInfo getAchievement(int userId) {
