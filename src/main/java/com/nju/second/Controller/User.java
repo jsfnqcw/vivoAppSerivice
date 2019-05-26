@@ -1,6 +1,7 @@
 package com.nju.second.Controller;
 
 import com.nju.second.Controller.pojo.loginPojo;
+import com.nju.second.Dao.LoginMessage;
 import com.nju.second.Service.Message;
 import com.nju.second.Service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,29 +40,40 @@ public class User {
     }
 
 
-    @RequestMapping("/app/login")
+    @RequestMapping("/login")
     @ResponseBody
-    public String login(@RequestBody @Validated loginPojo i, BindingResult bindingResult ,HttpServletResponse response) {
+    public LoginMessage login(@RequestBody @Validated loginPojo i, BindingResult bindingResult , HttpServletResponse response) {
+        LoginMessage loginMessage = new LoginMessage();
+        loginMessage.setSuccess(1);
+        loginMessage.setUserID(-1);
         if(bindingResult.hasErrors()){
-            return Message.ParamError;
+            return loginMessage;
         }
         if(uService.Login(i.getUserName(),i.getPassWord())){
             HttpSession session = request.getSession(true);
+            int getIdByUserName = uService.getIdByUsername(i.getUserName());
 
-            session.setAttribute("User",uService.getIdByUsername(i.getUserName()));
-
+            if(getIdByUserName==0){
+                return loginMessage;
+            }else {
+                session.setAttribute("User", uService.getIdByUsername(i.getUserName()));
+                loginMessage.setSuccess(0);
+                loginMessage.setUserID(uService.getIdByUsername(i.getUserName()));
+                return loginMessage;
+            }
             /*
             String a = session.getId();
             response.addHeader("JSESSIONID",a);
             */
 
-            return Message.Success;
+
         }else{
-            return Message.Fail;
+            return loginMessage;
         }
+
     }
 
-    @RequestMapping("/app/register")
+    @RequestMapping("/register")
     @ResponseBody
     public String register(@RequestBody @Validated loginPojo i, BindingResult bindingResult ) {
         if(bindingResult.hasErrors()){
