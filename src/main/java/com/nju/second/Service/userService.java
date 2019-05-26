@@ -35,7 +35,7 @@ public class userService {
                 newUser.setUserName(userName);
                 newUser.setPassWord(password);
                 newUser.setRegisterDate(TimeTools.getTime());
-                newUser.setState(1);
+                newUser.setImagePath("default");
                 userRepository.save(newUser);
                 return Message.Success;
             }else{

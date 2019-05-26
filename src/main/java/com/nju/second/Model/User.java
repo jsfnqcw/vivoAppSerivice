@@ -22,7 +22,7 @@ public class User {
     String passWord;
 
     String registerDate;
-    int state;
+    String imagePath;
 
     public int getUserId() {
         return userId;
@@ -56,20 +56,21 @@ public class User {
         this.registerDate = registerDate;
     }
 
-    public int getState() {
-        return state;
+
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
-    public User(int userId, String userName, String passWord, String registerDate, int state) {
+    public User(int userId, String userName, String passWord, String registerDate, String imagePath) {
         this.userId = userId;
         this.userName = userName;
         this.passWord = passWord;
         this.registerDate = registerDate;
-        this.state = state;
+        this.imagePath = imagePath;
     }
 
     public User() {
