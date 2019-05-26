@@ -1,5 +1,6 @@
 package com.nju.second.Controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.nju.second.Controller.pojo.UserInfoPojo;
 import com.nju.second.Controller.pojo.amountPojo;
 import com.nju.second.Controller.pojo.loginPojo;
@@ -72,38 +73,38 @@ public class User {
 
     @RequestMapping("/register")
     @ResponseBody
-    public int register(@RequestBody @Validated loginPojo i, BindingResult bindingResult ) {
+    public String register(@RequestBody @Validated loginPojo i, BindingResult bindingResult ) {
         if(bindingResult.hasErrors()){
-            return 1;
+            return Int_To_JSONString(1);
         }
         String userName = i.getUserName();
         String passWord = i.getPassWord();
 
-        return uService.Register(userName,passWord);
+        return Int_To_JSONString(uService.Register(userName,passWord));
     }
 
     @RequestMapping("/addMoney")
     @ResponseBody
-    public int addMoney(@RequestBody @Validated amountPojo i, BindingResult bindingResult ) {
+    public String addMoney(@RequestBody @Validated amountPojo i, BindingResult bindingResult ) {
         if(bindingResult.hasErrors()){
-            return 1;
+            return Int_To_JSONString(1);
         }
         int money = i.getAmount();
         HttpSession session = request.getSession(false);
         int userid = (int)session.getAttribute("User");
-        return uService.addMoney(userid,money);
+        return Int_To_JSONString(uService.addMoney(userid,money));
 
     }
 
     @RequestMapping("/getMoney")
     @ResponseBody
-    public int getMoney(BindingResult bindingResult) {
+    public String getMoney(BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            return 1;
+            return Int_To_JSONString(1);
         }
         HttpSession session = request.getSession(false);
         int userid = (int)session.getAttribute("User");
-        return uService.getMoney(userid);
+        return Int_To_JSONString(uService.getMoney(userid));
 
     }
 
@@ -139,6 +140,11 @@ public class User {
     }
 
 
+    public String Int_To_JSONString(int i){
+        JSONObject obj = new JSONObject();
+        obj.put("success",i+"");
+        return obj.toString();
+    }
 
 
 }

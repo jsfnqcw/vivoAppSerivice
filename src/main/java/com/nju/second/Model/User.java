@@ -22,7 +22,6 @@ public class User {
     @Column(columnDefinition="varbinary(255)")
     String passWord;
 
-    String registerDate;
     String imagePath;
 
     int money;
@@ -35,10 +34,9 @@ public class User {
 
     String focus;  //所有关注者的ID
 
-    public User(String userName, String passWord, String registerDate, String imagePath, int money) {
+    public User(String userName, String passWord, String imagePath, int money) {
         this.userName = userName;
         this.passWord = passWord;
-        this.registerDate = registerDate;
         this.imagePath = imagePath;
         this.money = money;
     }
@@ -75,13 +73,6 @@ public class User {
         this.passWord = passWord;
     }
 
-    public String getRegisterDate() {
-        return registerDate;
-    }
-
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
-    }
 
 
     public String getImagePath() {

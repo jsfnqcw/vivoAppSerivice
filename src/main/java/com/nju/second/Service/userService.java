@@ -1,6 +1,7 @@
 package com.nju.second.Service;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.nju.second.Dao.UserInfo;
 import com.nju.second.Model.User;
 import com.nju.second.Repositories.UserRepository;
@@ -38,7 +39,6 @@ public class userService {
                 User newUser = new User();
                 newUser.setUserName(userName);
                 newUser.setPassWord(password);
-                newUser.setRegisterDate(TimeTools.getTime());
                 newUser.setImagePath("default");
                 userRepository.save(newUser);
                 return 0;
@@ -122,6 +122,8 @@ public class userService {
             return 0;
         }
     }
+
+
 
 //    public UserInfo getAchievement(int userId) {
 //        try {
