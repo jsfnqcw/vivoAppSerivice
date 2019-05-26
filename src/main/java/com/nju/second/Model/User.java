@@ -27,26 +27,36 @@ public class User {
     int money;
 
 
-    public List<Game> getCreationList() {
-        return creationList;
-    }
 
-    public void setCreationList(List<Game> creationList) {
-        this.creationList = creationList;
-    }
 
     @OneToMany(mappedBy = "user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    List<Game> creationList;//文章列表
+    List<Game> creationList;
 
 
     String focus;  //所有关注者的ID
 
-    public User(String userName, String passWord, String imagePath, int money) {
-        this.userName = userName;
-        this.passWord = passWord;
-        this.imagePath = imagePath;
-        this.money = money;
+    String achievements;  //所有成就整合的字符串
+
+
+
+
+
+    public String getFocus() {
+        return focus;
     }
+
+    public void setFocus(String focus) {
+        this.focus = focus;
+    }
+
+    public String getAchievements() {
+        return achievements;
+    }
+
+    public void setAchievements(String achievements) {
+        this.achievements = achievements;
+    }
+
 
     public int getMoney() {
         return money;
@@ -90,7 +100,13 @@ public class User {
         this.imagePath = imagePath;
     }
 
+    public List<Game> getCreationList() {
+        return creationList;
+    }
 
+    public void setCreationList(List<Game> creationList) {
+        this.creationList = creationList;
+    }
     public User() {
     }
 }

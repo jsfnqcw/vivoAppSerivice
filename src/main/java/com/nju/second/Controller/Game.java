@@ -1,5 +1,7 @@
 package com.nju.second.Controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.nju.second.Controller.pojo.AuthorPojo;
 import com.nju.second.Controller.pojo.pagePojo;
 import com.nju.second.Service.gameService;
@@ -22,25 +24,25 @@ public class Game {
 
     @RequestMapping("/getGameListByAuthor")
     @ResponseBody
-    public List<Integer> getGameListByAuthor(@RequestBody @Validated AuthorPojo i, BindingResult bindingResult) {
-        List<Integer> list = new ArrayList<Integer>();
-        if(bindingResult.hasErrors()){
-            return list;
-        }
+    public String getGameListByAuthor(@RequestBody @Validated AuthorPojo i, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){return "{}"; }
+
         int authorId = i.getAuthorID();
-        return gService.getGameListByAuthor(authorId);
+        List<Integer> list =  gService.getGameListByAuthor(authorId);
+        return JSONArray.parseArray(JSON.toJSONString(list)).toJSONString();
 
     }
 
     @RequestMapping("/getGameList")
     @ResponseBody
-    public List<Integer> getGameList(@RequestBody @Validated pagePojo i, BindingResult bindingResult) {
-        List<Integer> list = new ArrayList<Integer>();
-        if(bindingResult.hasErrors()){
-            return list;
-        }
-        int page = i.getPage();
-        return gService.getGameListByAuthor(0);
+    public String getGameList(@RequestBody @Validated pagePojo i, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){return "{}"; }
+
+
+        int authorId = (int)request.getSession().getAttribute("User");
+        List<Integer> list =  gService.getGameListByAuthor(authorId);
+
+        return JSONArray.parseArray(JSON.toJSONString(list)).toJSONString();
 
     }
 }

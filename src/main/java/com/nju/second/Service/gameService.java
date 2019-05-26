@@ -25,7 +25,6 @@ public class gameService {
         for(int i=0;i<gamelist.size();i++){
             list.add(gamelist.get(i).getGameId());
         }
-
         return list;
     }
 
