@@ -29,5 +29,28 @@ public class gameService {
     }
 
 
+    public List<Integer> getAllGamesId(){
+        List<Game> list =  gameRepository.findAll();
+        List<Integer> result = new ArrayList<>();
+        for(Game g : list){
+            result.add(g.getGameId());
+        }
+        return result;
+    }
+
+    public Game getGameInfo(int gameId){
+        try{
+            return gameRepository.findByGameId(gameId);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+
+
+
 
 }

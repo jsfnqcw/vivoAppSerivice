@@ -4,6 +4,7 @@ package com.nju.second.Model;
 import org.hibernate.annotations.ColumnTransformer;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -107,6 +108,52 @@ public class User {
     public void setCreationList(List<Game> creationList) {
         this.creationList = creationList;
     }
+
+
+    public List<Integer> getFoucsId(){
+        List<Integer> list= new ArrayList<>();
+        String[] focuses = focus.split(",");
+        for(String tmp : focuses){
+            list.add(Integer.parseInt(tmp));
+        }
+        return list;
+    }
+
+    public void setFocus(List<Integer> input){
+        String str = "";
+        for (int i=0;i<input.size()-1;i++){
+            str += (input.get(i)+",");
+        }
+        str  = str +input.get(input.size()-1);
+        this.focus = str;
+    }
+
+    public void addFoucs(int userId){
+        List<Integer> list=getFoucsId();
+        for (int tmp :list){
+            if(userId == tmp){
+                return;
+            }
+        }
+        list.add(userId);
+        setFocus(list);
+    }
+
+    public void delFoucs(int userId){
+        List<Integer> list=getFoucsId();
+        for (int tmp :list){
+            if(userId == tmp){
+                list.remove(userId);
+                setFocus(list);
+                return;
+            }
+        }
+
+
+    }
+
+
+
     public User() {
     }
 }

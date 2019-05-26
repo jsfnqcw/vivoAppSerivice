@@ -1,6 +1,5 @@
 package com.nju.second.Controller.pojo;
 
-import com.nju.second.Controller.User;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotBlank;

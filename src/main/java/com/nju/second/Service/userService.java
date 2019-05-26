@@ -150,6 +150,55 @@ public class userService {
     }
 
 
+    public boolean follow(int myId,int userId){
+        try{
+            User me = userRepository.findByUserId(myId);
+            me.addFoucs(userId);
+            userRepository.save(me);
+            return true;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public boolean unFollow(int myId,int userId){
+        try{
+            User me = userRepository.findByUserId(myId);
+            me.delFoucs(userId);
+            userRepository.save(me);
+            return true;
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public User findUserByName(String userName){
+        try{
+            return userRepository.findByUserName(userName);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public List<Integer> getAllFollows(int myId){
+        try{
+            return userRepository.findByUserId(myId).getFoucsId();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
 //    public UserInfo getAchievement(int userId) {
 //        try {
 //            User user = userRepository.findByUserId(userid);
