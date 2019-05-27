@@ -16,7 +16,7 @@ public class pagePojo {
         return page;
     }
 
-    public void setPage(){
+    public void setPage(int page){
         this.page = page;
     }
 }

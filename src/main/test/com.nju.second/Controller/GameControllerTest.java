@@ -1,9 +1,14 @@
 package com.nju.second.Controller;
 
+import static org.junit.Assert.*;
+
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.nju.second.Controller.pojo.AuthorPojo;
 import com.nju.second.Controller.pojo.addCommentPojo;
 import com.nju.second.Controller.pojo.getCommentPojo;
+import com.nju.second.Controller.pojo.pagePojo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +27,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CommentControllerTest {
+public class GameControllerTest {
     @Autowired
     private MockMvc mvc;
     @Autowired
@@ -36,10 +41,10 @@ public class CommentControllerTest {
     @Test
     public void test1() {
         try {
-            addCommentPojo addCommentPojo = new addCommentPojo(12,"asd");
+            AuthorPojo authorPojo = new AuthorPojo(12);
             mvc.perform(MockMvcRequestBuilders
-                    .post("/addComment").requestAttr("User",12).sessionAttr("User",12).contentType(MediaType.APPLICATION_JSON)
-                    .content(JSON.toJSONString(addCommentPojo)));
+                    .post("/getGameListByAuthor").requestAttr("User",12).sessionAttr("User",12).contentType(MediaType.APPLICATION_JSON)
+                    .content(JSON.toJSONString(authorPojo)));
 //            .andExpect(MockMvcResultMatchers.content().string(""));  //测试接口返回内容
         }catch (Exception e){
             e.printStackTrace();
@@ -49,14 +54,29 @@ public class CommentControllerTest {
     @Test
     public void test2() {
         try {
-            getCommentPojo getCommentPojo = new getCommentPojo();
-            getCommentPojo.setGameID(12);
+            pagePojo pagePojo = new pagePojo(12);
             mvc.perform(MockMvcRequestBuilders
-                    .post("/getComment").requestAttr("User",12).sessionAttr("User",12).contentType(MediaType.APPLICATION_JSON)
-                    .content(JSON.toJSONString(getCommentPojo)));
+                    .post("/getGameList").requestAttr("User",12).sessionAttr("User",12).contentType(MediaType.APPLICATION_JSON)
+                    .content(JSON.toJSONString(pagePojo)));
 //            .andExpect(MockMvcResultMatchers.content().string(""));  //测试接口返回内容
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void test3() {
+        try {
+            String i = "a";
+            mvc.perform(MockMvcRequestBuilders
+                    .post("/getGameInfo").requestAttr("User",12).sessionAttr("User",12).contentType(MediaType.APPLICATION_JSON)
+                    .content(JSON.toJSONString(i)));
+//            .andExpect(MockMvcResultMatchers.content().string(""));  //测试接口返回内容
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

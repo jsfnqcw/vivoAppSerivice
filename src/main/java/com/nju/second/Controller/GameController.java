@@ -45,7 +45,7 @@ public class GameController {
 
     @RequestMapping("/getGameInfo")//所有的列表
     @ResponseBody
-    public String getGameList(@RequestBody String  i) {
+    public String getGameInfo(@RequestBody String i) {
         if(i == null){return null;}
         JSONObject obj = JSON.parseObject(i);
         Game game = gService.getGameInfo(obj.getInteger("gameID"));

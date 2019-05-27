@@ -16,7 +16,7 @@ public class AuthorPojo {
         return authorID;
     }
 
-    public void setAuthorID(){
+    public void setAuthorID(int authorID){
         this.authorID = authorID;
     }
 }

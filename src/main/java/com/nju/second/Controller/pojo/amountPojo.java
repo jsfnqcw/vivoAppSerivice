@@ -16,7 +16,7 @@ public class amountPojo {
         return amount;
     }
 
-    public void setAmount(){
+    public void setAmount(int amount){
         this.amount = amount;
     }
 
