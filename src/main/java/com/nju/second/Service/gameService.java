@@ -6,9 +6,11 @@ import com.nju.second.Repositories.CommentRepository;
 import com.nju.second.Repositories.GameRepository;
 import com.nju.second.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class gameService {
     @Autowired
     CommentRepository commentRepository;

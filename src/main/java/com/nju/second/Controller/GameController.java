@@ -8,6 +8,7 @@ import com.nju.second.Controller.pojo.pagePojo;
 import com.nju.second.Model.Game;
 import com.nju.second.Service.gameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+
+@Controller
 public class GameController {
     @Autowired
     gameService gService;
@@ -43,7 +46,7 @@ public class GameController {
         return JSONArray.parseArray(JSON.toJSONString(list)).toJSONString();
     }
 
-    @RequestMapping("/getGameInfo")//所有的列表
+    @RequestMapping("/getGameInfo")
     @ResponseBody
     public String getGameList(@RequestBody String  i) {
         if(i == null){return null;}
@@ -57,6 +60,13 @@ public class GameController {
         ob.put("description",game.getDescription());
 
         return ob.toJSONString();
+    }
+
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test() {
+        return JSON.toJSONString(gService.getAllGamesId());
     }
 
 }

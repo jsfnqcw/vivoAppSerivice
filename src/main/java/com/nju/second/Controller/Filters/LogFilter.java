@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/*", filterName = "logFilter2")
 public class LogFilter implements Filter {
 
-    String[] includeUrls = new String[]{"noLogin","/login","/register","/json",".js",".css",".ico",".jpg",".png"};
+    String[] includeUrls = new String[]{"test","noLogin","/login","/register","/json",".js",".css",".ico",".jpg",".png"};
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
