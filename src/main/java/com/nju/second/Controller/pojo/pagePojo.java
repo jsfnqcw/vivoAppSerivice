@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 public class pagePojo {
     @Range(min = 1, message = "页数错误")
-    @NotBlank(message = validationMessage.blank)
     int page;
 
     public pagePojo(int page){

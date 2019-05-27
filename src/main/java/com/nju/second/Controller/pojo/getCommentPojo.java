@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 public class getCommentPojo
 {
     @Range(min = 1, message = "GameID错误")
-    @NotBlank(message = validationMessage.blank)
     int gameID;
 
 

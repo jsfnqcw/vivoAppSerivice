@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -27,13 +28,15 @@ public class CommentController {
 
     @RequestMapping("/addComment")
     @ResponseBody
-    public void addComment(@RequestBody @Validated addCommentPojo i, BindingResult bindingResult) {
+    public void addComment(@RequestBody @Validated addCommentPojo i) {
         int gameId = i.getGameID();
         String comment = i.getContent();
         HttpSession session = request.getSession(false);
         int userId = (int)session.getAttribute("User");
         cService.addComment(gameId,comment,userId);
+
     }
+    //@RequestBody @Validated addCommentPojo i, BindingResult bindingResult
 
     @RequestMapping("/getCommentList")
     @ResponseBody

@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 public class UserInfoPojo {
     @Range(min = 1, message = "用户ID错误")
-    @NotBlank(message = validationMessage.blank)
     int userID;
 
     public UserInfoPojo(int userID){
