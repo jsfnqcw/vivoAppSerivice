@@ -28,7 +28,7 @@ public class CommentController {
 
     @RequestMapping("/addComment")
     @ResponseBody
-    public void addComment(@RequestBody @Validated addCommentPojo i) {
+    public void addComment(@RequestBody @Validated addCommentPojo i, BindingResult bindingResult) {
         int gameId = i.getGameID();
         String comment = i.getContent();
         HttpSession session = request.getSession(false);
