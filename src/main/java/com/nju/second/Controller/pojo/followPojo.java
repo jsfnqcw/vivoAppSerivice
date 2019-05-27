@@ -2,13 +2,11 @@ package com.nju.second.Controller.pojo;
 
 import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.NotBlank;
-
-public class UserInfoPojo {
-    @Range(min = 1, message = "用户ID错误")
+public class followPojo {
+    @Range(min = 1, message = "作者id错误")
     int userID;
 
-    public UserInfoPojo(int userID){
+    public followPojo(int userID){
         this.userID = userID;
     }
 

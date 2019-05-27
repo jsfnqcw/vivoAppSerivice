@@ -6,7 +6,6 @@ import javax.validation.constraints.NotBlank;
 
 public class amountPojo {
     @Range(min = 1, message = "改动的金额至少为一")
-    @NotBlank(message = validationMessage.blank)
     int amount;
 
     public amountPojo(int amount){
@@ -17,7 +16,7 @@ public class amountPojo {
         return amount;
     }
 
-    public void setAmount(){
+    public void setAmount(int amount){
         this.amount = amount;
     }
 

@@ -45,7 +45,8 @@ public class userService {
                 User newUser = new User();
                 newUser.setUserName(userName);
                 newUser.setPassWord(password);
-                newUser.setImagePath("default");
+                String s = this.getClass().getResource("/").getPath();
+                newUser.setImagePath(s+"/"+user);
                 userRepository.save(newUser);
                 return 0;
             }else{

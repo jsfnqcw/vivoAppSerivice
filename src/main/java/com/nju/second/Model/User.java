@@ -2,6 +2,7 @@ package com.nju.second.Model;
 
 
 import org.hibernate.annotations.ColumnTransformer;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class User {
     @Column(columnDefinition="varbinary(255)")
     String passWord;
 
+    @Nullable
     String imagePath;
 
     int money;
